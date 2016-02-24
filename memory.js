@@ -64,15 +64,9 @@ memory = {
     while (this.exposed.length < this.shuffleDeck.length) {
       if (state === 0) {
           this.dummyTurn();
-          // var cardValue1 = cardValue;
-          // console.log(cardValue1);
-          // this.exposed.push(cardValue1);
           state = 1;
       } else if (state === 1) {
           this.dummyTurn();
-          // var cardValue2 = cardValue;
-          // console.log(cardValue2);
-          // this.exposed.push(cardValue2);
           state = 2;
       } else if (state === 2 ){
           if (this.exposed[this.exposed.length - 1] === this.exposed[this.exposed.length - 2]) {
@@ -94,15 +88,37 @@ memory = {
   function5: function(){
   // event handler. Tells the cards to remain flipped if they are clicked or are successfully matched
 
-  },
-  runMemory: function(){
-  // initializes game
-  // can be called to rerun the game and reset the timers/counters
-  this.buildDeck(2);
-  this.combineDeck();
-  this.shuffle();
-  this.stateFinder();
+  // },
+  // runMemory: function(){
+  // // initializes game
+  // // can be called to rerun the game and reset the timers/counters
+  // this.buildDeck(2);
+  // this.combineDeck();
+  // this.shuffle();
+  // this.stateFinder();
   }
 };
 
-memory.runMemory();
+// memory.runMemory();
+
+
+// attempt at adding first event listener
+// var box1 = document.querySelector(".box1");
+// box1.addEventListener("click", changeBackgroundColorToRed);
+//
+// function changeBackgroundColorToRed(){
+//   // No need to change the content of this function. Don't worry if this code is new to you.
+//   box1.style.backgroundColor = "Red";
+// }
+var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)")
+
+
+for (var i = 0; i < cardSelector.length; i++) {
+  // console.log(cardSelector[i]);
+  cardSelector[i].addEventListener("click", function(){
+    this.style.backgroundColor = "Red";
+  });
+}
+//
+// for (var i = 0; i < coords.length; ++i) {
+//     this["marker"+i] = "some stuff";
