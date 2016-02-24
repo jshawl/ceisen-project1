@@ -9,6 +9,7 @@ memory = {
   deck2: [],
   shuffleDeck: [],
   exposed: [],
+  tileList: [],
   buildDeck: function(matchQty){
     // generates matching lists for decks 1 & 2 and replaces it in the deck variables
     //look at code from high card project for generating cards in a deck
@@ -59,6 +60,7 @@ memory = {
     this.exposed.push(cardValue);
   },
   stateFinder: function(){
+    // event handler. Tells the cards to remain flipped if they are clicked or are successfully matched
     // records the state of the game
     // Game initializes at state 0 with no cards turned, after first card is flipped state 1. Second card it will be at state 2. Once another card is clicked the cards will either be reflipped or remain exposed based on if the match was correct.
     while (this.exposed.length < this.shuffleDeck.length) {
@@ -85,40 +87,61 @@ memory = {
     }
     console.log("got em");
   },
-  function5: function(){
-  // event handler. Tells the cards to remain flipped if they are clicked or are successfully matched
-
-  // },
-  // runMemory: function(){
-  // // initializes game
-  // // can be called to rerun the game and reset the timers/counters
-  // this.buildDeck(2);
-  // this.combineDeck();
-  // this.shuffle();
+  tileListBuilder: function() {
+    var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)");
+    for(var i = 0; i < cardSelector.length || i < this.shuffleDeck.length ; i++){
+        cardSelector[i].setAttribute("data-index",i);
+        this.tileList.push({
+          divElement: cardSelector[i],
+          value: this.shuffleDeck[i],
+        });
+      }
+  },
+  assignTile: function() {
+    for (var i = 0; i < this.tileList.length; i++) {
+      // console.log(tileBuilder[i]);
+      this.tileList[i].divElement.addEventListener("click", function(){
+        // console.log(tileBuilder[i].value);
+        this.innerHTML = memory.shuffleDeck[this.getAttribute("data-index")];
+      });
+    }
+  },
+  runMemory: function(){
+  // initializes game
+  // can be called to rerun the game and reset the timers/counters
+  this.buildDeck(8);
+  this.combineDeck();
+  this.shuffle();
+  this.tileListBuilder();
+  this.assignTile();
   // this.stateFinder();
   }
 };
 
-// memory.runMemory();
+memory.runMemory();
 
 
-// attempt at adding first event listener
-// var box1 = document.querySelector(".box1");
-// box1.addEventListener("click", changeBackgroundColorToRed);
+// ------------------------
+// var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)");
 //
-// function changeBackgroundColorToRed(){
-//   // No need to change the content of this function. Don't worry if this code is new to you.
-//   box1.style.backgroundColor = "Red";
+// var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+//
+// tileBuilder = [];
+// function buildArray() {
+//   for(var i = 0; i < cardSelector.length || i < array.length ; i++){
+//       cardSelector[i].setAttribute("data-index",i);
+//       tileBuilder.push({
+//         divElement: cardSelector[i],
+//         value: array[i],
+//       });
+//     };
 // }
-var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)")
-
-
-for (var i = 0; i < cardSelector.length; i++) {
-  // console.log(cardSelector[i]);
-  cardSelector[i].addEventListener("click", function(){
-    this.style.backgroundColor = "Red";
-  });
-}
+// buildArray();
 //
-// for (var i = 0; i < coords.length; ++i) {
-//     this["marker"+i] = "some stuff";
+// for (var i = 0; i < tileBuilder.length; i++) {
+//   // console.log(tileBuilder[i]);
+//   tileBuilder[i].divElement.addEventListener("click", function(){
+//     // console.log(tileBuilder[i].value);
+//     this.innerHTML = array[this.getAttribute("data-index")];
+//   });
+// }
