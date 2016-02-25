@@ -10,6 +10,7 @@ body,figure{
 }
 
 
+
 /* Some default styles to make each box visible */
 .box {
   color:white;
@@ -20,35 +21,41 @@ body,figure{
 }
 
 /* Colours for each box */
-.box1 { background:#34495e;}
-.box2 { background:#16a085;}
-.box3 { background:#16a085;}
-.box4 { background:#16a085;}
-.box5 { background:#16a085;}
-.box6 { background:#16a085;}
-.box7 { background:#16a085;}
-.box8 { background:#16a085;}
-.box9 { background:#16a085;}
-.box10 { background:#16a085;}
-.box11 { background:#16a085;}
-.box12 { background:#16a085;}
-.box13 { background:#16a085;}
-.box14 { background:#16a085;}
-.box15 { background:#16a085;}
-.box16 { background:#16a085;}
-.box17 { background:#16a085;}
-.box18 { background:#34495e;}
+.box1 { background:#011638;}
+.box2 { background:#9055A2;}
+.box3 { background:#9055A2;}
+.box4 { background:#9055A2;}
+.box5 { background:#9055A2;}
+.box6 { background:#9055A2;}
+.box7 { background:#9055A2;}
+.box8 { background:#9055A2;}
+.box9 { background:#9055A2;}
+.box10 { background:#9055A2;}
+.box11 { background:#9055A2;}
+.box12 { background:#9055A2;}
+.box13 { background:#9055A2;}
+.box14 { background:#9055A2;}
+.box15 { background:#9055A2;}
+.box16 { background:#9055A2;}
+.box17 { background:#9055A2;}
+.box18 { background:#011638;}
 
 
 
 /* We start writing out flexbox here. The above is just page setup */
 .container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display:flex;
   flex-wrap: wrap;
   min-height: 100vh;
   /*border: 10px solid goldenrod;*/
   /*flex-direction: column;*/
-  /*background-image: url("http://i.imgur.com/Vp9Q38k.webm");*/
+  background-image: url(http://i.imgur.com/62Xu0AG.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .box {
@@ -61,8 +68,9 @@ body,figure{
 
 .box:not(.box1):not(.box18) {
   /*background-image: url(http://i.imgur.com/Vp9Q38k.gif);*/
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  color: #2E294E;
+  border-radius: 10%;
+  min-height: 150px;
 }
 
 .box1, .box18{
@@ -74,8 +82,15 @@ body,figure{
 
 .box1 {
   margin-bottom: 1px;
-  font-size: 30px;
+  font-size: 60px;
+  font-family: 'Londrina Shadow', cursive;
+  max-height: 150px;
 }
 .box18 {
   margin-top: 1px;
+  max-height: 20px;
+  align-self: flex-end;
+}
+.turns {
+  font-size: 40px;
 }
