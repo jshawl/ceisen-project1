@@ -40,5 +40,7 @@ To solve the problem of creating this game, I relied mainly on back-end javascri
 * Clone into your local repository
 * Open index.html, script.js and style.scss (or style.css) in your text editor of choice
 
+*Also used needs to click on third tile and last gif to make the matched tiles disappear.
+
 ###Unsolved problems
 A few problems I outlined in my gold, silver, bronze paths I know how to solve, but simply ran out of time. The major unsolved problem that would require a lot more time on my part, would be to implement a method that would allow the used to pick how many cards they want to match.
