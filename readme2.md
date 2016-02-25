@@ -25,6 +25,20 @@ Bronze: Partially meets wire frame drawing of site. Achieves back-end functional
 ###User Stories:
 1) As a user, I should be able to open the site in the browser and clearly indicate the purpose of the site (memory game) and the method for playing.
 2) As a user, I should be have some method to reveals cards/tiles in order to play the game.
-3) As a user, I should be able to see all the cards/tiles that I successfully matched after revealing their correct pairs.
+3) As a user, I should be able to see a picture in the background after cards/tiles are successfully matched.
 4) As a user, I should be able to click on clearly identified cards/tiles to increase the user-friendliness of the game.
-5) As a user, I should be able to see how long and how many turns it has taken me to correctly complete the matching game.
+5) As a user, I should be able to see how many turns it has taken me to correctly complete the matching game.
+
+###Technologies Used:
+HTML, CSS, and Javascript. Site is hosted thru Github pages.
+
+###Approach taken
+To solve the problem of creating this game, I relied mainly on back-end javascript with minimal HTML and CSS functionality. This was accomplished using Javascript to append and update CSS formatting and HTML text content. I also used flexbox styling to orient the various divs among my page, giving it clean and orderly aesthetics.
+
+###Installation Instructions
+* Fork this repo
+* Clone into your local repository
+* Open index.html, script.js and style.scss (or style.css) in your text editor of choice
+
+###Unsolved problems
+A few problems I outlined in my gold, silver, bronze paths I know how to solve, but simply ran out of time. The major unsolved problem that would require a lot more time on my part, would be to implement a method that would allow the used to pick how many cards they want to match.

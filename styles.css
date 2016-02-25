@@ -55,7 +55,6 @@ body,figure{
   flex-shrink: 1;
   width: 24%;
   margin: 1px;
-
 }
 
 .box:not(.box1):not(.box18) {
@@ -63,6 +62,7 @@ body,figure{
   color: #2E294E;
   border-radius: 10%;
   min-height: 150px;
+  font-size: 100px;
 }
 
 .box1, .box18{
