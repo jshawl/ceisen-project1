@@ -63,9 +63,7 @@ memory = {
     });
     this.textContent = memory.shuffleDeck[this.getAttribute("data-index")];
     clicks++;
-    // console.log(clicks);
     if (clicks%3===0) {
-      // console.log("lets check if its a match");
       memory.matchChecker();
       memory.turnsIncrementer();
     }
@@ -76,7 +74,7 @@ memory = {
     // also increments turn counter
     if(memory.exposed.length < memory.shuffleDeck.length) {
       clicks = 1;
-      if ( memory.exposed[memory.exposed.length - 2].num === memory.exposed[memory.exposed.length - 3].num ) {
+      if ( memory.exposed[memory.exposed.length - 2].num === memory.exposed[memory.exposed.length - 3].num && memory.exposed[memory.exposed.length - 2].attr != memory.exposed[memory.exposed.length - 3].attr) {
           // console.log("match!");
           this.correctMatch();
         } else {
@@ -96,8 +94,8 @@ memory = {
 
   },
   correctMatch: function(){
-    var card1 =   memory.cardSelector[memory.exposed[memory.exposed.length - 2].attr]
-    var card2 =   memory.cardSelector[memory.exposed[memory.exposed.length - 3].attr]
+    var card1 =   memory.cardSelector[memory.exposed[memory.exposed.length - 2].attr];
+    var card2 =   memory.cardSelector[memory.exposed[memory.exposed.length - 3].attr];
     card1.style.backgroundColor = 'transparent';
     card1.style.color = 'transparent';
     card1.style.textShadow = 'none';
