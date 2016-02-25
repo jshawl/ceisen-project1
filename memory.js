@@ -3,13 +3,15 @@ card2Index = 0;
 turns = 0;
 state = 0;
 cardValue = null;
+gameOn = false;
+clicks = 0;
 
 memory = {
   deck1: [],
   deck2: [],
   shuffleDeck: [],
   exposed: [],
-  tileList: [],
+  cardSelector: document.querySelectorAll(".box:not(.box1):not(.box18)"),
   buildDeck: function(matchQty){
     // generates matching lists for decks 1 & 2 and replaces it in the deck variables
     //look at code from high card project for generating cards in a deck
@@ -31,7 +33,7 @@ memory = {
     for (var card2 in this.deck2) {
       this.shuffleDeck.push(card2);
     }
-    console.log(this.shuffleDeck);
+    // console.log(this.shuffleDeck);
   },
   shuffle: function(){
     // assigns values from shuffled deck list to cards
@@ -51,70 +53,63 @@ memory = {
     }
     console.log(this.shuffleDeck);
   },
-  dummyTurn: function() {
-    // this function will prompt the user to select a card based on a number. Card 1 will relate to the first card in the shuffled deck
-    // this function will need to be removed after GUI is designed for site
-    var cardSelect = prompt("Choose the position you want to return");
-    var cardValue = this.shuffleDeck[parseInt(cardSelect)-1];
-    // console.log(cardValue);
-    this.exposed.push(cardValue);
+  // gameStart: function(){
+  //   if(this.exposed.length > 0){
+  //     console.log(state);
+  //     this.gameTracker();
+  //   }
+  // },
+  eventHandler: function() {
+    for(var i = 0; i < this.cardSelector.length; i++){
+      this.cardSelector[i].setAttribute("data-index",i);
+      this.cardSelector[i].addEventListener("click", this.mouseClick);
+      // function() {
+      //   memory.exposed.push({
+      //     attr: this.getAttribute("data-index"),
+      //     num: memory.shuffleDeck[this.getAttribute("data-index")]
+      //   });
+      //   this.innerHTML = memory.shuffleDeck[this.getAttribute("data-index")];
+      // });
+    }
   },
-  stateFinder: function(){
-    // event handler. Tells the cards to remain flipped if they are clicked or are successfully matched
+  mouseClick: function() {
+    // game handler. Tells the cards to remain flipped if they are clicked or are successfully matched
     // records the state of the game
     // Game initializes at state 0 with no cards turned, after first card is flipped state 1. Second card it will be at state 2. Once another card is clicked the cards will either be reflipped or remain exposed based on if the match was correct.
-    while (this.exposed.length < this.shuffleDeck.length) {
-      if (state === 0) {
-          this.dummyTurn();
-          state = 1;
-      } else if (state === 1) {
-          this.dummyTurn();
-          state = 2;
-      } else if (state === 2 ){
-          if (this.exposed[this.exposed.length - 1] === this.exposed[this.exposed.length - 2]) {
-            console.log("match!");
-            state = 0;
-          } else {
-            this.exposed.pop();
-            this.exposed.pop();
-            console.log(this.exposed);
-            console.log("no match!");
-            state = 0;
-          }
+    memory.exposed.push({
+      attr: this.getAttribute("data-index"),
+      num: memory.shuffleDeck[this.getAttribute("data-index")]
+    });
+    this.innerHTML = memory.shuffleDeck[this.getAttribute("data-index")];
+    console.log(memory.exposed);
+    clicks++;
+    console.log(clicks);
+    if (clicks%2===0) {
+      console.log("lets check if its a match");
+      memory.matchChecker();
+    }
+  },
+  matchChecker: function () {
+    if (memory.exposed[memory.exposed.length - 1].num === memory.exposed[memory.exposed.length - 2].num) {
+        console.log("match!");
+        state = 0;
       } else {
-        console.log("error");
+        memory.cardSelector[memory.exposed[memory.exposed.length - 1].attr].innerHTML="";
+        memory.cardSelector[memory.exposed[memory.exposed.length - 2].attr].innerHTML="";
+        memory.exposed.pop();
+        memory.exposed.pop();
+        console.log(memory.exposed);
+        console.log("no match!");
       }
-    }
-    console.log("got em");
-  },
-  tileListBuilder: function() {
-    var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)");
-    for(var i = 0; i < cardSelector.length || i < this.shuffleDeck.length ; i++){
-        cardSelector[i].setAttribute("data-index",i);
-        this.tileList.push({
-          divElement: cardSelector[i],
-          value: this.shuffleDeck[i],
-        });
-      }
-  },
-  assignTile: function() {
-    for (var i = 0; i < this.tileList.length; i++) {
-      // console.log(tileBuilder[i]);
-      this.tileList[i].divElement.addEventListener("click", function(){
-        // console.log(tileBuilder[i].value);
-        this.innerHTML = memory.shuffleDeck[this.getAttribute("data-index")];
-      });
-    }
   },
   runMemory: function(){
-  // initializes game
-  // can be called to rerun the game and reset the timers/counters
-  this.buildDeck(8);
-  this.combineDeck();
-  this.shuffle();
-  this.tileListBuilder();
-  this.assignTile();
-  // this.stateFinder();
+    // initializes game
+    // can be called to rerun the game and reset the timers/counters
+    this.buildDeck(8);
+    this.combineDeck();
+    this.shuffle();
+    this.eventHandler();
+    // this.gameTracker();
   }
 };
 
@@ -145,3 +140,76 @@ memory.runMemory();
 //     this.innerHTML = array[this.getAttribute("data-index")];
 //   });
 // }
+
+
+// dummyTurn: function() {
+//   // this function will prompt the user to select a card based on a number. Card 1 will relate to the first card in the shuffled deck
+//   // this function will need to be removed after GUI is designed for site
+//   var cardSelect = prompt("Choose the position you want to return");
+//   var cardValue = this.shuffleDeck[parseInt(cardSelect)-1];
+//   // console.log(cardValue);
+//   this.exposed.push(cardValue);
+// },
+
+// tileListBuilder: function() {
+//   // This function creates an array of objects to be called on in the assignTile function
+//   var cardSelector  = document.querySelectorAll(".box:not(.box1):not(.box18)");
+//   for(var i = 0; i < cardSelector.length; i++){
+//       cardSelector[i].setAttribute("data-index",i);
+//       // this.tileList.push({
+//       //   divElement: cardSelector[i],
+//       //   value: this.shuffleDeck[i],
+//       // });
+//     }
+// },
+// assignTile: function() {
+// // this functon is responsible for calling the div elements to turn once clicked
+// // Will also need to provide the index of the element that is clicked to feed into the exposed list and checked by the stateFinder
+//   for (var i = 0; i < this.cardSelector.length; i++) {
+//     // console.log(tileBuilder[i]);
+//     this.tileList[i].divElement.addEventListener("click", function(){
+//       // console.log(tileBuilder[i].value);
+//       memory.exposed.push(memory.shuffleDeck[this.getAttribute("data-index")]);
+//       this.exposed.forEach(function(){
+//         this.innerHTML = memory.shuffleDeck[this.getAttribute("data-index")];
+//       });
+//       console.log(memory.exposed);
+//     });
+//   }
+// },
+
+
+//
+// recordClick: function() {
+//   memory.exposed.push({
+//     attr: this.getAttribute("data-index"),
+//     num: this.shuffleDeck[this.getAttribute("data-index")]
+//   });
+//   gameOn=true;
+// },
+
+
+
+    // while (memory.exposed.length < memory.shuffleDeck.length) {
+    //   if (state === 0) {
+    //       memory.exposed[0].attr.innerHTML = memory.exposed[0].num;
+    //       state++;
+    //   } else if (state === 1) {
+    //       memory.exposed[memory.exposed.length -1].attr.innerHTML = memory.exposed[memory.exposed.length -1].num;
+    //       state++;
+    //   } else if (state === 2 ) {
+    //       if (memory.exposed[memory.exposed.length - 1].num === memory.exposed[memory.exposed.length - 2].num) {
+    //         console.log("match!");
+    //         state = 0;
+    //       } else {
+    //         memory.exposed.pop();
+    //         memory.exposed.pop();
+    //         console.log(memory.exposed);
+    //         console.log("no match!");
+    //         state = 0;
+    //       }
+    //   } else {
+    //     console.log("error");
+    //   }
+    // }
+    // console.log("got em");
