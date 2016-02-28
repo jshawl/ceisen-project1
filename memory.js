@@ -1,16 +1,18 @@
-turns = 0;
-clicks = 0;
+var turns = 0;
+var clicks = 0;
 
-memory = {
+var memory = {
   deck1: [],
   deck2: [],
   shuffleDeck: [],
   exposed: [],
-  cardSelector: document.querySelectorAll(".box:not(.box1):not(.box18)"),
+  cardSelector: document.querySelectorAll(".box:not(.box1):not(.box18)"), // the not feels a little code smelly.
+  // can you think of a way to use a different class for the first and last?
   buildDeck: function(matchQty){
     // generates matching lists for decks 1 & 2 and replaces it in the deck variables
     //look at code from high card project for generating cards in a deck
     //ultimately will need to accept an argument for how many cards to generate in the deck to incorporate flexible methodology
+    //excellent code comments!
     for (var i =1; i<= matchQty; i++) {
       this.deck1.push(i);
       this.deck2.push(i);
@@ -30,6 +32,7 @@ memory = {
     // look at code from high card project
     // assigns values from shuffled deck list to cards
     // Fisher-Yates (aka Knuth) Shuffle thanks to stackoverflow
+    // excellent!
     var currentIndex = this.shuffleDeck.length;
     var temporaryValue;
     var randomIndex;
@@ -49,19 +52,19 @@ memory = {
     //accepts the mouseclick and adds an attirbute to the HTML box classes to be selected later
     for(var i = 0; i < this.cardSelector.length; i++){
       this.cardSelector[i].setAttribute("data-index",i);
-      this.cardSelector[i].addEventListener("click", this.mouseClick);
+      this.cardSelector[i].addEventListener("click", this.mouseClick.bind(this));
     }
   },
-  mouseClick: function() {
+  mouseClick: function(event) {
     //function to be passed into event listener
     // pushes the clicks into the 'exposed' list to be evaluated for matches
     //swaps in number into HTML of specific box element
     //increments clicks to initiate the match checker function
-    memory.exposed.push({
-      attr: this.getAttribute("data-index"),
-      num: memory.shuffleDeck[this.getAttribute("data-index")]
+    this.exposed.push({
+      attr: event.target.getAttribute("data-index"),
+      num: memory.shuffleDeck[event.target.getAttribute("data-index")]
     });
-    this.textContent = memory.shuffleDeck[this.getAttribute("data-index")];
+    event.target.textContent = this.shuffleDeck[event.target.getAttribute("data-index")];
     clicks++;
     if (clicks%3===0) {
       memory.matchChecker();
@@ -83,12 +86,14 @@ memory = {
           memory.exposed.shift();
           memory.exposed.shift();
           // console.log(memory.exposed);
+	  // remove unused code
           // console.log("no match!");
         }
       }
-      if (memory.exposed.length === 17) {
+      if (memory.exposed.length === 17) { // maybe count the length instead of hardcoding 17
         this.correctMatch();
         document.querySelector('.container').style.backgroundImage = "url(http://i.imgur.com/Vp9Q38k.gif)";
+	// download the above image to prevent 404 in the future.
         console.log("you win");
       }
 
@@ -102,10 +107,13 @@ memory = {
     card2.style.backgroundColor = 'transparent';
     card2.style.color = 'transparent';
     card2.style.textShadow = 'none';
+    // could instead add class to card1 and 2 to keep styles out of JS.
   },
+
   turnsIncrementer: function () {
     turns++;
     document.querySelector(".turns").textContent = ("Turns: " + turns);
+    // nice!
   },
   runMemory: function(){
     // initializes game
@@ -118,3 +126,5 @@ memory = {
 };
 
 memory.runMemory();
+
+// excellent JS!

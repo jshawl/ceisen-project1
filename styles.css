@@ -18,22 +18,7 @@ body,figure{
 
 /* Colours for each box */
 .box1 { background:#011638;}
-.box2 { background:#9055A2;}
-.box3 { background:#9055A2;}
-.box4 { background:#9055A2;}
-.box5 { background:#9055A2;}
-.box6 { background:#9055A2;}
-.box7 { background:#9055A2;}
-.box8 { background:#9055A2;}
-.box9 { background:#9055A2;}
-.box10 { background:#9055A2;}
-.box11 { background:#9055A2;}
-.box12 { background:#9055A2;}
-.box13 { background:#9055A2;}
-.box14 { background:#9055A2;}
-.box15 { background:#9055A2;}
-.box16 { background:#9055A2;}
-.box17 { background:#9055A2;}
+.box:not(.box1):not(.box18) { background:#9055A2;}
 .box18 { background:#011638;}
 
 
@@ -46,6 +31,7 @@ body,figure{
   /*border: 10px solid goldenrod;*/
   /*flex-direction: column;*/
   background-image: url(http://i.imgur.com/62Xu0AG.png);
+  /* download above image to prevent 404 in the future */
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -86,3 +72,7 @@ body,figure{
 .turns {
   font-size: 40px;
 }
+
+/* I know you asked for feedback about flexbox styling, but this code looks great!
+ * let me know what you'd like to be able to do and we can go over in our 1-1.
+ * */
